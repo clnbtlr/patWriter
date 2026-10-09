@@ -12,6 +12,11 @@ Hatch pattern file parameters:
 
 Usage:
 python3 patWriter.py -f <path_to_txt_data_extraction> -b bbx bby -w <hatch_name>
+
+Parameters:
+f: path to .txt file exported from AutoCAD DATAEXTRACTION command
+b: bounding box of unit cell of hatch pattern drawn in AutoCAD
+w: write hatch pattern to .pat file with given name
 """
 
 def intersect_point_line(pt, line_p1, theta, hyp):
