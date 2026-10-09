@@ -8,8 +8,6 @@ The examples in this repository are designed for use with Tailte Éireann (forme
 
 <img width="992" height="426" alt="patWriter hatch pattern" src="https://github.com/user-attachments/assets/a5e42b22-0029-41e4-951b-d2ce8ecec31d" />
 
-This code is based on the [pat_writer](https://github.com/Justin-Yeung/pat_writer) repository by Justin-Yeung which is mainly intended for Rhino 8.
-
 ## Usage
 
 1. In AutoCAD, draw one unit cell of the pattern you want to use as hatch pattern. Polylines, Arcs, Splines, etc. should be exploded and divided into individual line objects.
@@ -41,3 +39,7 @@ This code is based on the [pat_writer](https://github.com/Justin-Yeung/pat_write
 | Flatrock            | <img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/53ed30d7-bdd7-4469-9f7a-49ed49042d1c" />  |
 | Sand                | <img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/2f804d21-c577-46a3-a510-a2f066ec8fda" />  |
 | Sand and Shingle    | <img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/038abb9d-8607-4897-9b1e-68a989055c5b" />  |
+
+## Credit
+
+This code is based on the [pat_writer](https://github.com/Justin-Yeung/pat_writer) repository by Justin-Yeung which is mainly intended for Rhino 8.
