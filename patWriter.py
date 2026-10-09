@@ -12,9 +12,7 @@ Hatch pattern file parameters:
 
 Usage:
 python3 patWriter.py -f <path_to_txt_data_extraction> -b bbx bby -w <hatch_name>
-
 """
-
 
 def intersect_point_line(pt, line_p1, theta, hyp):
     """
@@ -89,7 +87,7 @@ def main(fn,bb,w):
             atheta = np.degrees(np.arctan2((m*bb[1]),(n*bb[0]))) # approx. angle
 
             # find next closest point to line
-            closestpt = None
+            closestpt = None # initalise closept
             close_dist = np.sqrt(bb[1]*bb[1]+bb[0]*bb[0]) # initalise close_dist
             for i in range(abs(n)):
                 for j in range(abs(m)):
@@ -103,14 +101,11 @@ def main(fn,bb,w):
                         if distance < close_dist: # find closest point to line
                             closestpt = pt
                             close_dist = distance #deltaY
-            if closestpt == None:
-                #deltaY = 0
+            if closestpt == None: # if no closetpt found, use the bounding box length and width
                 if theta > 0:
                     closestpt = [x0+bb[0],y0+bb[1]]
                 else:
                     closestpt = [x0+bb[0],y0-bb[1]]
-            #else:
-                #deltaY = close_dist
 
             projpt,factor = intersect_point_line(closestpt, [x0,y0], atheta, hyp) # finds the closest point on the line, and the distance along the line
             if closestpt[1] < round(projpt[1],4):
@@ -119,13 +114,10 @@ def main(fn,bb,w):
                 deltaX = hyp*factor
             deltaY = close_dist
             ##### there is still a strange edge case when theta = -45 deg
-            #if line == 35:
-            #    print(closestpt, [x0,y0], atheta, hyp, projpt,factor,deltaX,deltaY)
-            
-            lines.append([atheta,x0,y0,deltaX,deltaY,length,length-hyp])
 
+            lines.append([atheta,x0,y0,deltaX,deltaY,length,length-hyp])
             
-    if w != "":
+    if w != "": # write lines to .pat file
         print(lines)
         with open('.\\'+w.upper()+'.pat', "w") as patfile:
             patfile.write('*'+w.upper()+',\n')
