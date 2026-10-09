@@ -4,8 +4,17 @@ from fractions import Fraction
 import numpy as np
 import csv
 
-## Hatch parameters:
-# {angle},{line.start.x},{line.start.y},{displacement_along_line},{displacement_perpen_line},{length},{dash}
+"""
+Python script for creating custom hatch patterns (.pat) files for AutoCAD
+
+Hatch pattern file parameters:
+{angle},{line.start.x},{line.start.y},{displacement_along_line},{displacement_perpen_line},{length},{dash}
+
+Usage:
+python3 patWriter.py -f <path_to_txt_data_extraction> -b bbx bby -w <hatch_name>
+
+"""
+
 
 def intersect_point_line(pt, line_p1, theta, hyp):
     """
