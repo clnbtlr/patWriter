@@ -4,7 +4,7 @@ patWriter is a Python script that converts any lines drawn in AutoCAD into a hat
 
 Although AutoCAD includes a standard library of hatch patterns, custom hatches allow you to create and use your own patterns to suit your needs. The advantage of hatch patterns over AutoCAD's SuperHatch tool is that hatches support annotative scaling which automatically resizes the pattern based on the current viewport or annotation scale while SuperHatch does not.
 
-The examples in this repository are designed for use with Tailte Éireann (formerly Ordnance Survey Ireland) mapping applications.
+The examples in this repository are designed for mapping applications in the legend style of Tailte Éireann (formerly Ordnance Survey Ireland).
 
 <img width="992" height="426" alt="patWriter hatch pattern" src="https://github.com/user-attachments/assets/a5e42b22-0029-41e4-951b-d2ce8ecec31d" />
 
@@ -40,6 +40,6 @@ The examples in this repository are designed for use with Tailte Éireann (forme
 | Sand                | <img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/2f804d21-c577-46a3-a510-a2f066ec8fda" />  |
 | Sand and Shingle    | <img width="64" height="64" alt="image" src="https://github.com/user-attachments/assets/038abb9d-8607-4897-9b1e-68a989055c5b" />  |
 
-## Credit
+## Credits
 
 This code is based on the [pat_writer](https://github.com/Justin-Yeung/pat_writer) repository by Justin-Yeung which is mainly intended for Rhino 8.
