@@ -45,7 +45,7 @@ def intersect_point_line(pt, line_p1, theta, hyp):
     closest_point = line_p1 + (line_vec*factor) # closest coordinates on the line
     return closest_point, float(factor)
 
-def main(fn,bb,w):
+def main(fn,bb,w=None):
     df = pd.read_csv(fn,sep='\t',header=0) # Read in data from txt file created using AutoCAD DATAEXTRACTION command
     print(df.to_string())
     lines = []
@@ -121,8 +121,8 @@ def main(fn,bb,w):
             ##### there is still a strange edge case when theta = -45 deg
 
             lines.append([atheta,x0,y0,deltaX,deltaY,length,length-hyp])
-            
-    if w != "": # write lines to .pat file
+        
+    if w != None: # write lines to .pat file
         print(lines)
         with open('.\\'+w.upper()+'.pat', "w") as patfile:
             patfile.write('*'+w.upper()+',\n')
