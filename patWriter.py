@@ -45,7 +45,7 @@ def intersect_point_line(pt, line_p1, theta, hyp):
     closest_point = line_p1 + (line_vec*factor) # closest coordinates on the line
     return closest_point, float(factor)
 
-def main(fn,bb,w):
+def main(fn,bb,w=None):
     df = pd.read_csv(fn,sep='\t',header=0) # Read in data from txt file created using AutoCAD DATAEXTRACTION command
     print(df.to_string())
     lines = []
@@ -85,7 +85,7 @@ def main(fn,bb,w):
                 x0 = df['Start X'][line]
                 y0 = df['Start Y'][line]
 
-            tangent = np.tan(np.radians(theta))
+            tangent = np.round(np.tan(np.radians(theta)),8)
             ratio = Fraction(round(tangent*bb[0]/bb[1],2)).limit_denominator()
             m,n = ratio.numerator, ratio.denominator  # calculates approx. interger triangle
             hyp = np.sqrt(m*m*bb[1]*bb[1]+n*n*bb[0]*bb[0]) # hypoteneuse of interger triangle
@@ -93,7 +93,7 @@ def main(fn,bb,w):
 
             # find next closest point to line
             closestpt = None # initalise closept
-            close_dist = np.sqrt(bb[1]*bb[1]+bb[0]*bb[0]) # initalise close_dist
+            close_dist = np.sqrt(bb[1]*bb[1]+bb[0]*bb[0])/2 # initalise close_dist to half the bounding box hyp
             for i in range(abs(n)):
                 for j in range(abs(m)):
                     if not(i==0 and j==0):
@@ -106,23 +106,20 @@ def main(fn,bb,w):
                         if distance < close_dist: # find closest point to line
                             closestpt = pt
                             close_dist = distance #deltaY
-            if closestpt == None: # if no closetpt found, use the bounding box length and width
-                if theta > 0:
-                    closestpt = [x0+bb[0],y0+bb[1]]
-                else:
-                    closestpt = [x0+bb[0],y0-bb[1]]
-
-            projpt,factor = intersect_point_line(closestpt, [x0,y0], atheta, hyp) # finds the closest point on the line, and the distance along the line
-            if closestpt[1] < round(projpt[1],4):
-                deltaX  = hyp - hyp*factor
+            if closestpt == None: # if no closetpt found, use the close_dist. This condition is needed for angles at 45deg.
+                deltaX = close_dist
+                deltaY = close_dist
             else:
-                deltaX = hyp*factor
-            deltaY = close_dist
-            ##### there is still a strange edge case when theta = -45 deg
+                projpt,factor = intersect_point_line(closestpt, [x0,y0], atheta, hyp) # finds the closest point on the line, and the distance along the line
+                if closestpt[1] < round(projpt[1],4):
+                    deltaX  = hyp - hyp*factor
+                else:
+                    deltaX = hyp*factor
+                deltaY = close_dist
 
             lines.append([atheta,x0,y0,deltaX,deltaY,length,length-hyp])
-            
-    if w != "": # write lines to .pat file
+        
+    if w != None: # write lines to .pat file
         print(lines)
         with open('.\\'+w.upper()+'.pat', "w") as patfile:
             patfile.write('*'+w.upper()+',\n')
